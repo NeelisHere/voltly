@@ -85,7 +85,7 @@ jobs:
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -93,7 +93,7 @@ jobs:
       - name: Build Docker image
         run: |
           MODULE=${{ github.event.inputs.module }}
-          IMAGE=ghcr.io/${{ github.repository_owner }}/${MODULE}
+          IMAGE=${REGISTRY}/${IMAGE_NAME}/${MODULE}
           docker build \
             -t $IMAGE:${SHORT_SHA} \
             -t $IMAGE:latest \
@@ -103,6 +103,6 @@ jobs:
       - name: Push Docker image
         run: |
           MODULE=${{ github.event.inputs.module }}
-          IMAGE=ghcr.io/${{ github.repository_owner }}/${MODULE}
+          IMAGE=${REGISTRY}/${IMAGE_NAME}/${MODULE}
           docker push $IMAGE:${SHORT_SHA}
           docker push $IMAGE:latest
