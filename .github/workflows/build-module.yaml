@@ -72,7 +72,7 @@ jobs:
       - name: Create Dockerfile dynamically
         run: |
           run: |
-            MODULE=config-server
+            MODULE=${{ github.event.inputs.module }}
             DOCKERFILE_PATH=./${MODULE}/Dockerfile
           
             if [ ! -f "$DOCKERFILE_PATH" ]; then
