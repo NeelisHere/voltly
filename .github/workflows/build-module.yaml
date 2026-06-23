@@ -8,6 +8,7 @@ on:
         required: true
         type: choice
         options:
+          - config-server
           - api-gateway
           - user-service
           - device-service
