@@ -92,7 +92,8 @@ jobs:
       - name: Build Docker image
         run: |
           MODULE=${{ github.event.inputs.module }}
-          IMAGE=${REGISTRY}/${IMAGE_NAME}/${MODULE}
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE=${REGISTRY}/${OWNER}/${MODULE}
           docker build \
             -t $IMAGE:${SHORT_SHA} \
             -t $IMAGE:latest \
@@ -102,6 +103,7 @@ jobs:
       - name: Push Docker image
         run: |
           MODULE=${{ github.event.inputs.module }}
-          IMAGE=${REGISTRY}/${IMAGE_NAME}/${MODULE}
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE=${REGISTRY}/${OWNER}/${MODULE}
           docker push $IMAGE:${SHORT_SHA}
           docker push $IMAGE:latest
