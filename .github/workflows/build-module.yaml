@@ -71,19 +71,15 @@ jobs:
 
       - name: Create Dockerfile dynamically
         run: |
-          MODULE=${{ github.event.inputs.module }}
-          DOCKERFILE_PATH=./${MODULE}/Dockerfile
-          if [ -f "$DOCKERFILE_PATH" ]; then
-            echo "Dockerfile already exists at $DOCKERFILE_PATH"
-          else
-            echo "Dockerfile not found. Creating one..."
-            cat <<EOF > "$DOCKERFILE_PATH"
-            FROM eclipse-temurin:21-jre
-            COPY target/*.jar app.jar
-            ENTRYPOINT ["java", "-jar", "/app.jar"]
-            EOF
-            echo "Dockerfile created at $DOCKERFILE_PATH"
-          fi
+          run: |
+            MODULE=config-server
+            DOCKERFILE_PATH=./${MODULE}/Dockerfile
+          
+            if [ ! -f "$DOCKERFILE_PATH" ]; then
+              echo 'FROM eclipse-temurin:21-jre' > "$DOCKERFILE_PATH"
+              echo 'COPY target/*.jar app.jar' >> "$DOCKERFILE_PATH"
+              echo 'ENTRYPOINT ["java", "-jar", "/app.jar"]' >> "$DOCKERFILE_PATH"
+            fi
 
 
       - name: Log in to GHCR
