@@ -13,6 +13,7 @@ on:
           - user-service
           - device-service
           - ingestion-service
+          - usage-service
           - alert-service
           - insight-service
 
