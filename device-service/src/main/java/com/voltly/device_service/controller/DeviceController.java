@@ -22,14 +22,14 @@ public class DeviceController {
     }
 
     @PostMapping
-    public ResponseEntity<DeviceDto> registerDevice(DeviceDto deviceDto) {
+    public ResponseEntity<DeviceDto> registerDevice(@RequestBody DeviceDto deviceDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(deviceService.registerDevice(deviceDto));
     }
 
     @PutMapping
-    public ResponseEntity<DeviceDto> updateDevice(DeviceDto deviceDto) {
+    public ResponseEntity<DeviceDto> updateDevice(@RequestBody DeviceDto deviceDto) {
         return ResponseEntity.ok(deviceService.updateDevice(deviceDto));
     }
 
