@@ -82,7 +82,7 @@ public class UsageService {
                     sqsClient.send(alertingEvent);
                 }
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                log.info("Error: {}", e.getMessage());
             }
         }
     }
