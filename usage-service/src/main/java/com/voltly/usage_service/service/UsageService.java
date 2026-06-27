@@ -60,10 +60,10 @@ public class UsageService {
             );
     }
 
-    @Scheduled(cron = "0 */15 * * * *")
+    @Scheduled(cron = "0 */5 * * * *")
     public void sendEmailToAllUsersExceedingEnergyUsageThreshold() {
-        LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
-        List<DeviceEnergy> deviceEnergyUsageList = getTotalEnergyUsageByDeviceInLastXHours(oneHourAgo);
+        LocalDateTime fiveHoursAgo = LocalDateTime.now().minusHours(5);
+        List<DeviceEnergy> deviceEnergyUsageList = getTotalEnergyUsageByDeviceInLastXHours(fiveHoursAgo);
         Map<Long, Double> totalEnergyUsagePerUser = getTotalEnergyUsagePerUser(deviceEnergyUsageList);
         log.info("energyPerUser: {}", totalEnergyUsagePerUser);
         for (var entry: totalEnergyUsagePerUser.entrySet()) {
